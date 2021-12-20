@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import fetch from './libs/fetch';
-import Config from './ApiUri';
+import Config from './Config';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
@@ -24,19 +24,27 @@ async function fetchShards(policy: string) {
 
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-API-Key': Config.ApiKey },
         body: JSON.stringify(parsedPolicy)
     };
-    return fetch(Config.ApiUri, requestOptions).then(response => response)
+    return fetch(Config.ApiUri, requestOptions)
 }
 
 function Shatter(input: string, setShardOutput: React.Dispatch<React.SetStateAction<string>>, setExplanationOutput: React.Dispatch<React.SetStateAction<string[]>>) {
     return fetchShards(input)
         .then(response => {
-            setShardOutput(prettyJson(response.shards))
-            setExplanationOutput(response.explain)
+            if ("shards" in response) {
+                setShardOutput(prettyJson(response.shards))
+                setExplanationOutput(response.explain)
+            } else {
+                setShardOutput(prettyJson(response))
+                setExplanationOutput([prettyJson(response)])
+            }
         })
-        .catch(err => { setShardOutput(err); setExplanationOutput([err]) })
+        .catch(err => {
+            setShardOutput(err);
+            setExplanationOutput(err)
+        })
 
 }
 
