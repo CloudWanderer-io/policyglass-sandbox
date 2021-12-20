@@ -2,15 +2,15 @@ import json
 
 import pytest
 
-from hello_world import app
+from policyglass_shatter import app
 
 
 @pytest.fixture()
 def apigw_event():
-    """ Generates API GW Event"""
+    """Generates API GW Event"""
 
     return {
-        "body": '{ "test": "body"}',
+        "body": '{"Statement": [{"Effect": "Allow", "Action": "s3:*"}]}',
         "resource": "/{proxy+}",
         "requestContext": {
             "resourceId": "123456",
@@ -62,12 +62,20 @@ def apigw_event():
     }
 
 
-def test_lambda_handler(apigw_event, mocker):
+def test_lambda_handler(apigw_event):
 
     ret = app.lambda_handler(apigw_event, "")
     data = json.loads(ret["body"])
 
     assert ret["statusCode"] == 200
-    assert "message" in ret["body"]
-    assert data["message"] == "hello world"
-    # assert "location" in data.dict_keys()
+
+    assert data == {
+        "explain": ["Allow action s3:* on resource * with principal AWS *"],
+        "shards": [
+            {
+                "effective_action": {"inclusion": "s3:*"},
+                "effective_resource": {"inclusion": "*"},
+                "effective_principal": {"inclusion": {"type": "AWS", "value": "*"}},
+            }
+        ],
+    }

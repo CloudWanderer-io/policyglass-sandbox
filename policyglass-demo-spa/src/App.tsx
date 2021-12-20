@@ -1,4 +1,3 @@
-import { useState } from 'react';
 
 import Sandbox from './Sandbox';
 import Header from './Header';
@@ -6,14 +5,13 @@ import Box from '@mui/material/Box';
 import './App.css';
 
 function App() {
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+
 
   return (
     <div className="App">
       {Header()}
       <main>
-        {Sandbox(input, setInput, output, setOutput)}
+        {Sandbox()}
         <Box className="Call-to-action-box">
           <h1>Ready to use it for real?</h1>
           <p>Visit <a

@@ -1,10 +1,15 @@
 import json
-from policyglass import Policy, dedupe_policy_shards, policy_shards_effect, policy_shards_to_json
+from policyglass import (
+    Policy,
+    dedupe_policy_shards,
+    policy_shards_effect,
+    policy_shards_to_json,
+)
 
 
 def lambda_handler(event, context):
     """Return a list of PolicyGlass PolicyShards from a given policy."""
-    input_policy = json.loads(json.loads(event["body"]))
+    input_policy = json.loads(event["body"])
     try:
         policy = Policy(**input_policy)
     except Exception as ex:
@@ -30,11 +35,14 @@ def lambda_handler(event, context):
             "Access-Control-Allow-Methods": "POST",
         },
         "body": json.dumps(
-            json.loads(
-                policy_shards_to_json(
-                    shards_effect,
-                    exclude_defaults=True,
-                )
-            )
+            {
+                "explain": [shard.explain for shard in shards_effect],
+                "shards": json.loads(
+                    policy_shards_to_json(
+                        shards_effect,
+                        exclude_defaults=True,
+                    )
+                ),
+            }
         ),
     }

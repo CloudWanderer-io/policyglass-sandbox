@@ -73,6 +73,6 @@ textarea {
     }
 }
 
-.examples {
-    margin-bottom: 5vh;
+li {
+    text-align: left;
 }
