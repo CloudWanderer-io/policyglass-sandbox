@@ -21,6 +21,9 @@ function App() {
             rel="noopener noreferrer">
             policyglass.cloudwanderer.io
           </a> to get started parsing AWS policies.</p>
+          <h2>Found a bug?</h2>
+          <p><a className="App-link" href="https://github.com/CloudWanderer-io/PolicyGlass/issues" target="_blank"
+            rel="noopener noreferrer">Report it in GitHub Issues.</a></p>
         </Box>
       </main>
     </div >
