@@ -53,6 +53,7 @@ textarea {
     min-width: 25rem;
     width: 100%;
     min-height: 25rem;
+    padding: .25rem;
 }
 
 @media (min-width: 1080px) {

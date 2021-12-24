@@ -32,6 +32,7 @@ Resources:
       CodeUri: policyglass_shatter/
       Handler: app.lambda_handler
       Runtime: python3.9
+      Timeout: 30
       Architectures:
         - arm64
       Events:

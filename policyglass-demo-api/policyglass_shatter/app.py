@@ -26,7 +26,7 @@ def lambda_handler(event, context):
         }
 
     deduped_shards = dedupe_policy_shards(policy.policy_shards)
-    shards_effect = policy_shards_effect(deduped_shards)
+    shards_effect = dedupe_policy_shards(policy_shards_effect(deduped_shards))
     return {
         "statusCode": 200,
         "headers": {
