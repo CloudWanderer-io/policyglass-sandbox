@@ -19,7 +19,7 @@ function prettyJson(obj: unknown) {
 }
 
 type Message = {
-    message: string
+    errorMessage: string
 }
 
 async function fetchShards(policy: string) {
@@ -27,7 +27,7 @@ async function fetchShards(policy: string) {
     try {
         parsedPolicy = JSON.parse(policy)
     } catch (ex) {
-        return new Promise<Message>(resolve => resolve({ "message": `${ex}` }))
+        return new Promise<Message>(resolve => resolve({ "errorMessage": `${ex}` }))
     }
 
     const requestOptions = {
@@ -49,18 +49,18 @@ function Shatter(input: string,
                 setShardOutput(prettyJson(response.shards))
                 setExplanationOutput(response.explain)
             }
-            else if ("message" in response) {
+            else if ("errorMessage" in response) {
                 setShardOutput(prettyJson(response))
-                setExplanationOutput([response.message])
+                setExplanationOutput([response.errorMessage])
             }
             else {
                 setShardOutput(prettyJson(response))
-                setExplanationOutput([response])
+                setExplanationOutput([JSON.stringify(response)])
             }
         })
         .catch(err => {
             setShardOutput(err);
-            setExplanationOutput([err])
+            setExplanationOutput([JSON.stringify(err)])
         }).finally(() => toggleLoading(false))
 
 }

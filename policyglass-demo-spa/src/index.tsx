@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ReactGA from 'react-ga4';
+
+ReactGA.initialize('G-VB8H3B9DWW');
+ReactGA.send("pageview");
+
 
 ReactDOM.render(
   <React.StrictMode>
