@@ -1,1 +1,1 @@
-policyglass>=0.4.7
+policyglass>=0.5.0

@@ -1,9 +1,9 @@
 import json
 from policyglass import (
     Policy,
-    dedupe_policy_shards,
     policy_shards_effect,
     policy_shards_to_json,
+    delineate_intersecting_shards,
 )
 
 
@@ -25,8 +25,9 @@ def lambda_handler(event, context):
             "body": json.dumps({"errorMessage": f"{ex} - event"}),
         }
 
-    deduped_shards = dedupe_policy_shards(policy.policy_shards)
-    shards_effect = dedupe_policy_shards(policy_shards_effect(deduped_shards))
+    shards_effect = delineate_intersecting_shards(
+        policy_shards_effect(policy.policy_shards)
+    )
     return {
         "statusCode": 200,
         "headers": {

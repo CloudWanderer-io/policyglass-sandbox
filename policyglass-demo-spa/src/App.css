@@ -3,14 +3,14 @@
 }
 
 .App-logo {
-    height: calc(15.5 * (10px + 2vmin));
+    height: calc(15.5 * (10px + 1.5rem));
     pointer-events: none;
 }
 
 .App-header {
     margin-bottom: 5vh;
-    padding: 5vh;
-    font-size: calc(10px + 2vmin);
+    padding: 1rem;
+    font-size: calc(10px + 1.5rem);
     background-color: rgb(25, 25, 25);
     color: white;
 }
@@ -34,10 +34,11 @@
     padding-bottom: 5vh
 }
 
-.Call-to-action-box {
+.Call-to-action-box,
+footer {
     background-color: rgb(25, 25, 25);
     color: white;
-    padding: 5vh
+    padding: 2vh
 }
 
 .Input-shards,
@@ -54,6 +55,10 @@ textarea {
     width: 100%;
     min-height: 25rem;
     padding: .25rem;
+}
+
+.Footer-Icon {
+    margin-right: 1rem;
 }
 
 @media (min-width: 1080px) {
